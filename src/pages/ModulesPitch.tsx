@@ -1,0 +1,597 @@
+import React, { useState } from 'react';
+import { 
+  FileText, 
+  DollarSign, 
+  UserCheck, 
+  Search, 
+  Calculator, 
+  Bell, 
+  Upload, 
+  FileSpreadsheet, 
+  Download, 
+  Smartphone, 
+  Briefcase, 
+  Sparkles
+} from 'lucide-react';
+
+export const ModulesPitch: React.FC = () => {
+  const [activeModule, setActiveModule] = useState<'licencias' | 'tesoreria' | 'autogestion'>('licencias');
+
+  // Interactive state for micro-tools
+  // Tool 1: Buscador de suplentes
+  const [selectedSubject, setSelectedSubject] = useState('Matemática - 3er Año Secundaria');
+  const [assignedTeacher, setAssignedTeacher] = useState<string | null>(null);
+
+  // Tool 2: Calculadora de días estatuto
+  const [licenseTypeCalc, setLicenseTypeCalc] = useState('114a1'); // Enfermedad corta
+  const [daysUsed, setDaysUsed] = useState(5);
+
+  // Tool 3: Adelanto de sueldo
+  const [advanceAmount, setAdvanceAmount] = useState(45000);
+  const [advanceReason, setAdvanceReason] = useState('Gastos imprevistos de salud');
+  const [advanceSuccess, setAdvanceSuccess] = useState(false);
+
+  // Tool 4: Importación masiva de recibos
+  const [importFile, setImportFile] = useState<string | null>(null);
+  const [isImporting, setIsImporting] = useState(false);
+
+  // Tool 5: Declaración jurada
+  const [otherSchoolsCount, setOtherSchoolsCount] = useState(1);
+  const [totalHours, setTotalHours] = useState(28);
+  const [ddjjSuccess, setDdjjSuccess] = useState(false);
+
+  const mockSupplements = [
+    { id: 1, name: 'Prof. Carlos Gómez', subject: 'Matemática', availability: 'Inmediata (Turno Mañana)', score: 98.4 },
+    { id: 2, name: 'Prof. Laura Benítez', subject: 'Matemática / Física', availability: 'A partir de mañana', score: 95.1 },
+    { id: 3, name: 'Prof. Esteban Quito', subject: 'Matemática', availability: 'Con disponibilidad horaria', score: 92.0 },
+  ];
+
+  const handleAssignSuplente = (teacherName: string) => {
+    setAssignedTeacher(teacherName);
+    setTimeout(() => setAssignedTeacher(null), 4000);
+  };
+
+  const handleImportSimulate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImportFile(file.name);
+      setIsImporting(true);
+      setTimeout(() => {
+        setIsImporting(false);
+      }, 1500);
+    }
+  };
+
+  const handleAdvanceSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setAdvanceSuccess(true);
+    setTimeout(() => setAdvanceSuccess(false), 3500);
+  };
+
+  const handleDdjjSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setDdjjSuccess(true);
+    setTimeout(() => setDdjjSuccess(false), 3500);
+  };
+
+  return (
+    <div className="space-y-8">
+      
+      {/* Header section */}
+      <div className="bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 dark:from-[#1e2538] dark:via-[#22293e] dark:to-[#1a2133] rounded-2xl p-6 text-white shadow-lg border border-blue-800/40 relative overflow-hidden">
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-700/50 text-blue-200 text-xs font-semibold border border-blue-600/40 mb-2">
+              <Sparkles className="w-3.5 h-3.5 text-amber-300" /> Módulos Especiales para el Colegio
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+              Botonera de Gestión Institucional
+            </h1>
+            <p className="text-xs sm:text-sm text-blue-200 dark:text-slate-300 mt-1 max-w-2xl">
+              Explorá las funciones avanzadas diseñadas específicamente para agilizar la operativa diaria, tesorería y autogestión docente de la institución.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* BOTONERA PRINCIPAL (TABS) */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        
+        {/* Botón 1: Licencias y Suplencias */}
+        <button
+          onClick={() => setActiveModule('licencias')}
+          className={`p-5 rounded-2xl border text-left transition-all relative overflow-hidden group ${
+            activeModule === 'licencias'
+              ? 'bg-blue-600 text-white border-blue-500 shadow-lg ring-2 ring-blue-400/30'
+              : 'bg-white dark:bg-[#212738] text-slate-800 dark:text-slate-200 border-slate-200 dark:border-[#2c344a] hover:border-blue-400 dark:hover:border-blue-500/50 hover:shadow-md'
+          }`}
+        >
+          <div className="flex items-center justify-between mb-3">
+            <div className={`p-3 rounded-xl ${
+              activeModule === 'licencias' ? 'bg-white/20 text-white' : 'bg-blue-50 dark:bg-blue-500/15 text-blue-600 dark:text-blue-400'
+            }`}>
+              <FileText className="w-6 h-6" />
+            </div>
+            <span className={`text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full border ${
+              activeModule === 'licencias' 
+                ? 'bg-white/20 text-white border-white/30' 
+                : 'bg-blue-100 dark:bg-blue-500/20 text-blue-800 dark:text-blue-300 border-blue-200 dark:border-blue-500/30'
+            }`}>
+              Operativa Diaria
+            </span>
+          </div>
+          <h3 className="font-bold text-base leading-tight">1. Licencias y Suplencias</h3>
+          <p className={`text-xs mt-1.5 leading-relaxed ${activeModule === 'licencias' ? 'text-blue-100' : 'text-slate-500 dark:text-slate-400'}`}>
+            Cobertura rápida de horas libres, cálculo automático de topes estatutarios y alertas de ausentismo.
+          </p>
+        </button>
+
+        {/* Botón 2: Liquidación de Haberes y Tesorería */}
+        <button
+          onClick={() => setActiveModule('tesoreria')}
+          className={`p-5 rounded-2xl border text-left transition-all relative overflow-hidden group ${
+            activeModule === 'tesoreria'
+              ? 'bg-emerald-600 text-white border-emerald-500 shadow-lg ring-2 ring-emerald-400/30'
+              : 'bg-white dark:bg-[#212738] text-slate-800 dark:text-slate-200 border-slate-200 dark:border-[#2c344a] hover:border-emerald-400 dark:hover:border-emerald-500/50 hover:shadow-md'
+          }`}
+        >
+          <div className="flex items-center justify-between mb-3">
+            <div className={`p-3 rounded-xl ${
+              activeModule === 'tesoreria' ? 'bg-white/20 text-white' : 'bg-emerald-50 dark:bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
+            }`}>
+              <DollarSign className="w-6 h-6" />
+            </div>
+            <span className={`text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full border ${
+              activeModule === 'tesoreria' 
+                ? 'bg-white/20 text-white border-white/30' 
+                : 'bg-emerald-100 dark:bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border-emerald-200 dark:border-emerald-500/30'
+            }`}>
+              Finanzas & RRHH
+            </span>
+          </div>
+          <h3 className="font-bold text-base leading-tight">2. Liquidación y Tesorería</h3>
+          <p className={`text-xs mt-1.5 leading-relaxed ${activeModule === 'tesoreria' ? 'text-emerald-100' : 'text-slate-500 dark:text-slate-400'}`}>
+            Importación masiva desde sistemas contables, solicitudes de adelantos y certificados de haberes.
+          </p>
+        </button>
+
+        {/* Botón 3: Experiencia Docente y Autogestión */}
+        <button
+          onClick={() => setActiveModule('autogestion')}
+          className={`p-5 rounded-2xl border text-left transition-all relative overflow-hidden group ${
+            activeModule === 'autogestion'
+              ? 'bg-indigo-600 text-white border-indigo-500 shadow-lg ring-2 ring-indigo-400/30'
+              : 'bg-white dark:bg-[#212738] text-slate-800 dark:text-slate-200 border-slate-200 dark:border-[#2c344a] hover:border-indigo-400 dark:hover:border-indigo-500/50 hover:shadow-md'
+          }`}
+        >
+          <div className="flex items-center justify-between mb-3">
+            <div className={`p-3 rounded-xl ${
+              activeModule === 'autogestion' ? 'bg-white/20 text-white' : 'bg-indigo-50 dark:bg-indigo-500/15 text-indigo-600 dark:text-indigo-400'
+            }`}>
+              <UserCheck className="w-6 h-6" />
+            </div>
+            <span className={`text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full border ${
+              activeModule === 'autogestion' 
+                ? 'bg-white/20 text-white border-white/30' 
+                : 'bg-indigo-100 dark:bg-indigo-500/20 text-indigo-800 dark:text-indigo-300 border-indigo-200 dark:border-indigo-500/30'
+            }`}>
+              Autogestión
+            </span>
+          </div>
+          <h3 className="font-bold text-base leading-tight">3. Portal de Autogestión</h3>
+          <p className={`text-xs mt-1.5 leading-relaxed ${activeModule === 'autogestion' ? 'text-indigo-100' : 'text-slate-500 dark:text-slate-400'}`}>
+            Declaración jurada de cargos, solicitudes de salidas didácticas e instalación PWA en celulares.
+          </p>
+        </button>
+
+      </div>
+
+      {/* CONTENIDO INTERACTIVO SEGÚN EL MÓDULO SELECCIONADO */}
+      
+      {/* ----------------- MÓDULO 1: LICENCIAS Y SUPLENCIAS ----------------- */}
+      {activeModule === 'licencias' && (
+        <div className="space-y-6 animate-fadeIn">
+          
+          <div className="flex items-center justify-between border-b border-slate-200 dark:border-[#2c344a] pb-3">
+            <div>
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <FileText className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                Módulo 1: Gestión de Licencias y Cobertura de Suplencias
+              </h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                Herramientas interactivas para que la secretaría escolar resuelva el ausentismo sin demoras.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            
+            {/* Tool A: Buscador Automático de Suplentes */}
+            <div className="bg-white dark:bg-[#212738] rounded-2xl border border-slate-200 dark:border-[#2c344a] p-6 shadow-xs space-y-4">
+              <div className="flex items-center justify-between border-b border-slate-100 dark:border-[#2c344a] pb-3">
+                <div className="flex items-center gap-2">
+                  <Search className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                  <h3 className="font-bold text-slate-900 dark:text-white text-base">Buscador Inteligente de Suplentes</h3>
+                </div>
+                <span className="text-[10px] bg-blue-100 dark:bg-blue-500/20 text-blue-800 dark:text-blue-300 font-semibold px-2 py-0.5 rounded">
+                  Orden de Mérito
+                </span>
+              </div>
+
+              <div className="space-y-3">
+                <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400">
+                  Seleccionar Materia / Curso a Cubrir:
+                </label>
+                <select
+                  value={selectedSubject}
+                  onChange={(e) => setSelectedSubject(e.target.value)}
+                  className="w-full bg-slate-50 dark:bg-[#181d2b] border border-slate-300 dark:border-[#2c344a] rounded-xl px-3 py-2 text-xs font-semibold text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="Matemática - 3er Año Secundaria">Matemática - 3er Año Secundaria (Turno Mañana)</option>
+                  <option value="Prácticas del Lenguaje - 1er Año">Prácticas del Lenguaje - 1er Año</option>
+                  <option value="Física y Química - 4to Año">Física y Química - 4to Año</option>
+                  <option value="Historia - 2do Año Secundaria">Historia - 2do Año Secundaria</option>
+                </select>
+
+                <div className="space-y-2 pt-2">
+                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">Candidatos disponibles en padrón:</p>
+                  {mockSupplements.map((sup) => (
+                    <div 
+                      key={sup.id}
+                      className="p-3 bg-slate-50 dark:bg-[#181d2b] rounded-xl border border-slate-200 dark:border-[#2c344a] flex items-center justify-between text-xs"
+                    >
+                      <div>
+                        <p className="font-bold text-slate-900 dark:text-white">{sup.name}</p>
+                        <p className="text-slate-500 dark:text-slate-400 text-[11px]">{sup.availability} • Puntaje: {sup.score}</p>
+                      </div>
+                      <button
+                        onClick={() => handleAssignSuplente(sup.name)}
+                        className="bg-blue-600 hover:bg-blue-500 text-white font-bold px-3 py-1.5 rounded-lg transition shadow-2xs text-[11px]"
+                      >
+                        Asignar Cobertura
+                      </button>
+                    </div>
+                  ))}
+                </div>
+
+                {assignedTeacher && (
+                  <div className="bg-emerald-100 dark:bg-emerald-500/20 text-emerald-900 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-500/30 p-3 rounded-xl text-xs font-semibold text-center animate-fadeIn">
+                    ¡Horas asignadas a <strong className="underline">{assignedTeacher}</strong>! Se ha enviado la notificación por WhatsApp.
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Tool B: Calculadora de Topes Estatutarios */}
+            <div className="bg-white dark:bg-[#212738] rounded-2xl border border-slate-200 dark:border-[#2c344a] p-6 shadow-xs space-y-4">
+              <div className="flex items-center justify-between border-b border-slate-100 dark:border-[#2c344a] pb-3">
+                <div className="flex items-center gap-2">
+                  <Calculator className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                  <h3 className="font-bold text-slate-900 dark:text-white text-base">Calculadora de Días por Estatuto (ABC)</h3>
+                </div>
+                <span className="text-[10px] bg-indigo-100 dark:bg-indigo-500/20 text-indigo-800 dark:text-indigo-300 font-semibold px-2 py-0.5 rounded">
+                  Reglamento
+                </span>
+              </div>
+
+              <div className="space-y-4 text-xs">
+                <div>
+                  <label className="block font-semibold text-slate-600 dark:text-slate-400 mb-1">
+                    Artículo / Tipo de Licencia:
+                  </label>
+                  <select
+                    value={licenseTypeCalc}
+                    onChange={(e) => setLicenseTypeCalc(e.target.value)}
+                    className="w-full bg-slate-50 dark:bg-[#181d2b] border border-slate-300 dark:border-[#2c344a] rounded-xl px-3 py-2 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 font-semibold"
+                  >
+                    <option value="114a1">Art. 114 a.1 - Enfermedad afección ordinaria (Máx. 30 días/año)</option>
+                    <option value="114o">Art. 114 o - Atención de Familiar a Cargo (Máx. 20 días/año)</option>
+                    <option value="114c">Art. 114 c - Examen Universitario (Máx. 28 días/año)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block font-semibold text-slate-600 dark:text-slate-400 mb-1">
+                    Días acumulados consumidos este año:
+                  </label>
+                  <input
+                    type="number"
+                    min={0}
+                    max={60}
+                    value={daysUsed}
+                    onChange={(e) => setDaysUsed(parseInt(e.target.value) || 0)}
+                    className="w-full bg-slate-50 dark:bg-[#181d2b] border border-slate-300 dark:border-[#2c344a] rounded-xl px-3 py-2 text-slate-900 dark:text-white focus:outline-none"
+                  />
+                </div>
+
+                {/* Calculation Result */}
+                <div className="bg-slate-50 dark:bg-[#181d2b] p-4 rounded-xl border border-slate-200 dark:border-[#2c344a] space-y-2">
+                  <div className="flex justify-between items-center text-slate-700 dark:text-slate-300">
+                    <span>Tope Anual Autorizado:</span>
+                    <strong className="text-slate-900 dark:text-white">
+                      {licenseTypeCalc === '114a1' ? '30 días' : licenseTypeCalc === '114o' ? '20 días' : '28 días'}
+                    </strong>
+                  </div>
+                  <div className="flex justify-between items-center text-slate-700 dark:text-slate-300">
+                    <span>Días Disponibles Restantes:</span>
+                    <strong className="text-emerald-600 dark:text-emerald-400 font-bold text-sm">
+                      {Math.max(0, (licenseTypeCalc === '114a1' ? 30 : licenseTypeCalc === '114o' ? 20 : 28) - daysUsed)} días con goce de sueldo
+                    </strong>
+                  </div>
+                </div>
+
+                <div className="p-3 bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/30 rounded-xl text-blue-900 dark:text-blue-300 flex items-start gap-2 text-[11px]">
+                  <Bell className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
+                  <span>
+                    El sistema previene automáticamente que el docente solicite más días de los que le corresponden sin previa junta médica.
+                  </span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      )}
+
+      {/* ----------------- MÓDULO 2: LIQUIDACIÓN DE HABERES Y TESORERÍA ----------------- */}
+      {activeModule === 'tesoreria' && (
+        <div className="space-y-6 animate-fadeIn">
+          
+          <div className="flex items-center justify-between border-b border-slate-200 dark:border-[#2c344a] pb-3">
+            <div>
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <DollarSign className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                Módulo 2: Liquidación de Haberes y Soluciones para Tesorería
+              </h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                Herramientas financieras y administrativas para reducir reclamos de sueldo y agilizar la firma digital.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            
+            {/* Tool C: Importación Masiva de Recibos */}
+            <div className="bg-white dark:bg-[#212738] rounded-2xl border border-slate-200 dark:border-[#2c344a] p-6 shadow-xs space-y-4">
+              <div className="flex items-center justify-between border-b border-slate-100 dark:border-[#2c344a] pb-3">
+                <div className="flex items-center gap-2">
+                  <FileSpreadsheet className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                  <h3 className="font-bold text-slate-900 dark:text-white text-base">Importador Masivo de Recibos</h3>
+                </div>
+                <span className="text-[10px] bg-emerald-100 dark:bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 font-semibold px-2 py-0.5 rounded">
+                  Excel / CSV / Tango
+                </span>
+              </div>
+
+              <div className="space-y-3 text-xs">
+                <p className="text-slate-600 dark:text-slate-400">
+                  Subí la planilla de sueldos emitida por tu sistema contable para disponibilizar los recibos a todo el plantel docente en segundos.
+                </p>
+
+                <div className="relative border-2 border-dashed border-slate-300 dark:border-[#2c344a] rounded-2xl p-6 text-center hover:border-emerald-500 bg-slate-50 dark:bg-[#181d2b]">
+                  <input 
+                    type="file" 
+                    accept=".csv,.xlsx,.xls"
+                    onChange={handleImportSimulate}
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  />
+                  <div className="flex flex-col items-center justify-center gap-2">
+                    <Upload className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+                    {importFile ? (
+                      <p className="font-bold text-slate-900 dark:text-white">{importFile}</p>
+                    ) : (
+                      <p className="font-semibold text-slate-700 dark:text-slate-300">
+                        Arrastrá el archivo Excel de liquidación aquí
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                {isImporting && (
+                  <p className="text-center font-bold text-emerald-600 dark:text-emerald-400 animate-pulse">
+                    Procesando 85 recibos de sueldo...
+                  </p>
+                )}
+
+                {importFile && !isImporting && (
+                  <div className="bg-emerald-100 dark:bg-emerald-500/20 text-emerald-900 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-500/30 p-3 rounded-xl text-center font-semibold">
+                    ¡85 Recibos de Sueldo digitalizados y publicados correctamente!
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Tool D: Solicitud de Adelanto de Sueldo */}
+            <div className="bg-white dark:bg-[#212738] rounded-2xl border border-slate-200 dark:border-[#2c344a] p-6 shadow-xs space-y-4">
+              <div className="flex items-center justify-between border-b border-slate-100 dark:border-[#2c344a] pb-3">
+                <div className="flex items-center gap-2">
+                  <DollarSign className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                  <h3 className="font-bold text-slate-900 dark:text-white text-base">Solicitud Digital de Adelanto</h3>
+                </div>
+                <span className="text-[10px] bg-emerald-100 dark:bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 font-semibold px-2 py-0.5 rounded">
+                  Tesorería
+                </span>
+              </div>
+
+              <form onSubmit={handleAdvanceSubmit} className="space-y-3 text-xs">
+                <div>
+                  <label className="block font-semibold text-slate-600 dark:text-slate-400 mb-1">
+                    Monto Solicitado ($ ARS):
+                  </label>
+                  <input
+                    type="number"
+                    step={5000}
+                    value={advanceAmount}
+                    onChange={(e) => setAdvanceAmount(parseInt(e.target.value) || 0)}
+                    className="w-full bg-slate-50 dark:bg-[#181d2b] border border-slate-300 dark:border-[#2c344a] rounded-xl px-3 py-2 text-slate-900 dark:text-white font-bold text-sm"
+                  />
+                </div>
+
+                <div>
+                  <label className="block font-semibold text-slate-600 dark:text-slate-400 mb-1">
+                    Motivo / Justificación:
+                  </label>
+                  <input
+                    type="text"
+                    value={advanceReason}
+                    onChange={(e) => setAdvanceReason(e.target.value)}
+                    className="w-full bg-slate-50 dark:bg-[#181d2b] border border-slate-300 dark:border-[#2c344a] rounded-xl px-3 py-2 text-slate-900 dark:text-white"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl transition shadow-sm"
+                >
+                  Enviar Solicitud a Representación Legal
+                </button>
+
+                {advanceSuccess && (
+                  <div className="bg-emerald-100 dark:bg-emerald-500/20 text-emerald-900 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-500/30 p-3 rounded-xl text-center font-semibold animate-fadeIn">
+                    ¡Solicitud de anticipo por ${advanceAmount.toLocaleString('es-AR')} enviada a revisión!
+                  </div>
+                )}
+              </form>
+            </div>
+
+          </div>
+
+        </div>
+      )}
+
+      {/* ----------------- MÓDULO 3: EXPERIENCIA DOCENTE Y AUTOGESTIÓN ----------------- */}
+      {activeModule === 'autogestion' && (
+        <div className="space-y-6 animate-fadeIn">
+          
+          <div className="flex items-center justify-between border-b border-slate-200 dark:border-[#2c344a] pb-3">
+            <div>
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <UserCheck className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                Módulo 3: Portal de Autogestión y Experiencia Docente
+              </h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                Simplifica los trámites presenciales de los profesores mediante autogestión 100% digital.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            
+            {/* Tool E: Declaración Jurada de Cargos */}
+            <div className="bg-white dark:bg-[#212738] rounded-2xl border border-slate-200 dark:border-[#2c344a] p-6 shadow-xs space-y-4">
+              <div className="flex items-center justify-between border-b border-slate-100 dark:border-[#2c344a] pb-3">
+                <div className="flex items-center gap-2">
+                  <Briefcase className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                  <h3 className="font-bold text-slate-900 dark:text-white text-base">DDJJ de Cargos e Incompatibilidad</h3>
+                </div>
+                <span className="text-[10px] bg-indigo-100 dark:bg-indigo-500/20 text-indigo-800 dark:text-indigo-300 font-semibold px-2 py-0.5 rounded">
+                  Obligatorio DGCyE
+                </span>
+              </div>
+
+              <form onSubmit={handleDdjjSubmit} className="space-y-3 text-xs">
+                <p className="text-slate-600 dark:text-slate-400">
+                  Actualizá tu declaración de horas en otras instituciones educativas para control de superposición horaria.
+                </p>
+
+                <div>
+                  <label className="block font-semibold text-slate-600 dark:text-slate-400 mb-1">
+                    Cantidad de otros establecimientos donde ejerces:
+                  </label>
+                  <input
+                    type="number"
+                    min={0}
+                    max={10}
+                    value={otherSchoolsCount}
+                    onChange={(e) => setOtherSchoolsCount(parseInt(e.target.value) || 0)}
+                    className="w-full bg-slate-50 dark:bg-[#181d2b] border border-slate-300 dark:border-[#2c344a] rounded-xl px-3 py-2 text-slate-900 dark:text-white"
+                  />
+                </div>
+
+                <div>
+                  <label className="block font-semibold text-slate-600 dark:text-slate-400 mb-1">
+                    Total general de horas cátedra semanales:
+                  </label>
+                  <input
+                    type="number"
+                    min={1}
+                    max={60}
+                    value={totalHours}
+                    onChange={(e) => setTotalHours(parseInt(e.target.value) || 0)}
+                    className="w-full bg-slate-50 dark:bg-[#181d2b] border border-slate-300 dark:border-[#2c344a] rounded-xl px-3 py-2 text-slate-900 dark:text-white"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2.5 rounded-xl transition shadow-sm"
+                >
+                  Firmar y Presentar DDJJ Digital
+                </button>
+
+                {ddjjSuccess && (
+                  <div className="bg-emerald-100 dark:bg-emerald-500/20 text-emerald-900 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-500/30 p-3 rounded-xl text-center font-semibold animate-fadeIn">
+                    ¡Declaración Jurada presentada con éxito! Copia guardada en legajo.
+                  </div>
+                )}
+              </form>
+            </div>
+
+            {/* Tool F: Descarga de Certificados e Instalador App */}
+            <div className="bg-white dark:bg-[#212738] rounded-2xl border border-slate-200 dark:border-[#2c344a] p-6 shadow-xs space-y-4">
+              <div className="flex items-center justify-between border-b border-slate-100 dark:border-[#2c344a] pb-3">
+                <div className="flex items-center gap-2">
+                  <Smartphone className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                  <h3 className="font-bold text-slate-900 dark:text-white text-base">Descargas & App Celular (PWA)</h3>
+                </div>
+                <span className="text-[10px] bg-indigo-100 dark:bg-indigo-500/20 text-indigo-800 dark:text-indigo-300 font-semibold px-2 py-0.5 rounded">
+                  Acceso Rápido
+                </span>
+              </div>
+
+              <div className="space-y-3 text-xs">
+                <div className="p-3 bg-slate-50 dark:bg-[#181d2b] rounded-xl border border-slate-200 dark:border-[#2c344a] flex items-center justify-between">
+                  <div>
+                    <p className="font-bold text-slate-900 dark:text-white">Certificado de Trabajo Oficial</p>
+                    <p className="text-slate-500 dark:text-slate-400 text-[11px]">Para presentar en bancos o trámites de vivienda</p>
+                  </div>
+                  <button 
+                    onClick={() => alert("Generando Certificado de Trabajo PDF con firma digital institucional...")}
+                    className="bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 text-slate-800 dark:text-white font-semibold px-3 py-1.5 rounded-lg transition"
+                  >
+                    <Download className="w-3.5 h-3.5 inline mr-1" /> Descargar
+                  </button>
+                </div>
+
+                <div className="p-3 bg-slate-50 dark:bg-[#181d2b] rounded-xl border border-slate-200 dark:border-[#2c344a] flex items-center justify-between">
+                  <div>
+                    <p className="font-bold text-slate-900 dark:text-white">Formulario 649 (Ganancias)</p>
+                    <p className="text-slate-500 dark:text-slate-400 text-[11px]">Resumen anual de retenciones de impuesto</p>
+                  </div>
+                  <button 
+                    onClick={() => alert("Descargando Formulario F649 en formato oficial...")}
+                    className="bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 text-slate-800 dark:text-white font-semibold px-3 py-1.5 rounded-lg transition"
+                  >
+                    <Download className="w-3.5 h-3.5 inline mr-1" /> Descargar
+                  </button>
+                </div>
+
+                <div className="p-4 bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/30 rounded-xl text-indigo-950 dark:text-indigo-300 text-center space-y-1">
+                  <Smartphone className="w-6 h-6 mx-auto text-indigo-600 dark:text-indigo-400" />
+                  <p className="font-bold text-xs">Instalá esta App en tu celular</p>
+                  <p className="text-[11px] text-indigo-800 dark:text-indigo-400">
+                    Abrí esta página desde tu celular y elegí "Agregar a la pantalla principal". Funciona como una app nativa sin ocupar memoria.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      )}
+
+    </div>
+  );
+};
