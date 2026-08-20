@@ -21,27 +21,11 @@ function AppContent() {
     return savedAuth === 'true';
   });
 
-  // Light Mode by default
-  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
-    const saved = localStorage.getItem('school_app_theme');
-    return (saved === 'light' || saved === 'dark') ? saved : 'light';
-  });
-
+  // Force 100% Dark Mode permanently
   useEffect(() => {
-    localStorage.setItem('school_app_theme', theme);
-    const root = document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-      root.classList.remove('light');
-    } else {
-      root.classList.add('light');
-      root.classList.remove('dark');
-    }
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-  };
+    document.documentElement.classList.add('dark');
+    document.documentElement.classList.remove('light');
+  }, []);
 
   const handleLogin = () => {
     setIsAuthenticated(true);
@@ -79,18 +63,14 @@ function AppContent() {
   const pendingLicensesCount = licenses.filter((l) => l.status === 'pendiente' || l.status === 'en_revision').length;
 
   if (!isAuthenticated) {
-    return <Login onLogin={handleLogin} theme={theme} />;
+    return <Login onLogin={handleLogin} />;
   }
 
   return (
-    <div className={`min-h-screen flex flex-col transition-colors duration-200 ${
-      theme === 'dark' ? 'bg-[#181c28] text-slate-100' : 'bg-slate-50 text-slate-900'
-    }`}>
+    <div className="min-h-screen flex flex-col bg-[#181c28] text-slate-100 transition-colors duration-200">
       <Header 
         pendingPayslipsCount={pendingPayslipsCount} 
         pendingLicensesCount={pendingLicensesCount} 
-        theme={theme}
-        onToggleTheme={toggleTheme}
         onLogout={handleLogout}
       />
 
