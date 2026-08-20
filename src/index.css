@@ -32,41 +32,87 @@ html, body {
 }
 
 /* ----------------------------------------------------
+   HIDE NETLIFY INJECTED BADGE / TOOLBAR WIDGETS
+   ---------------------------------------------------- */
+iframe[src*="netlify"],
+[data-netlify-badge],
+[data-netlify-drawer],
+#netlify-drawer,
+.netlify-badge,
+div[class*="netlify"],
+button[class*="netlify"],
+a[href*="netlify.com/powered-by"],
+div:has(> a[href*="netlify"]) {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* ----------------------------------------------------
    PRINT OPTIMIZATION (ONLY PRINT SELECTED PAYSLIP)
    ---------------------------------------------------- */
 @media print {
   @page {
     size: A4 portrait;
-    margin: 10mm 12mm;
+    margin: 8mm 10mm;
   }
 
-  /* Hide everything in the DOM by default when printing */
-  body * {
-    visibility: hidden !important;
+  /* Hide app header, footer, nav and interactive controls */
+  header, footer, nav, .no-print {
+    display: none !important;
   }
 
-  /* Make ONLY the printable payslip document visible */
-  .printable-document, .printable-document * {
-    visibility: visible !important;
+  /* Hide all background page content except the modal container */
+  main > div > div:not(:has(.printable-document)) {
+    display: none !important;
   }
 
-  /* Position printable document as full A4 page */
-  .printable-document {
+  /* Ensure pure white paper background */
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  /* Transform the fixed modal backdrop into full A4 document */
+  .fixed.inset-0:has(.printable-document) {
     position: absolute !important;
     left: 0 !important;
     top: 0 !important;
     width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    height: auto !important;
+    min-height: 100% !important;
     background: #ffffff !important;
-    color: #000000 !important;
-    box-shadow: none !important;
-    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    z-index: 99999 !important;
+    display: block !important;
   }
 
-  /* Force elements marked no-print to disappear completely */
-  .no-print, .no-print * {
-    display: none !important;
-    visibility: hidden !important;
+  /* Reset inner modal dialog box */
+  .fixed.inset-0:has(.printable-document) > div {
+    max-width: 100% !important;
+    width: 100% !important;
+    max-height: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* Force printable document to render full width */
+  .printable-document {
+    background: #ffffff !important;
+    color: #000000 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    display: block !important;
   }
 }
