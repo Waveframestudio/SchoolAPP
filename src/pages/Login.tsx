@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { 
-  GraduationCap, 
   UserCheck, 
   Lock, 
   User, 
@@ -43,9 +42,13 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
       <div className="max-w-md w-full space-y-6">
         
         {/* Institutional Header Logo */}
-        <div className="text-center space-y-2">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-600/30 border border-blue-500/40 text-blue-300 shadow-xl mb-2">
-            <GraduationCap className="w-10 h-10" />
+        <div className="text-center space-y-3">
+          <div className="inline-flex items-center justify-center p-3 rounded-3xl bg-white border border-slate-700 shadow-2xl mb-1">
+            <img 
+              src="/logo.png" 
+              alt="Logo Colegio San Jorge" 
+              className="h-16 object-contain"
+            />
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
             Colegio San Jorge

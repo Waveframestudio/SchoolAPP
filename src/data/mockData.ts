@@ -19,12 +19,12 @@ export const mockUser: UserProfile = {
   email: "m.rossi@colegiosanjorge.edu.ar",
   fileNumber: "LEG-84920",
   role: "Docente Titular - Historia & Formación Ética",
-  school: "Colegio San Jorge - Nivel Secundario (DIEGEP N° 4102)",
+  school: "Colegio San Jorge - Gral. Pacheco (DIEGEP N° 4102)",
   dni: "32.849.102",
   seniority: "10 años y 2 meses (Escala 60% Antigüedad)",
   shift: "Turno Mañana / Tarde (20 Horas Cátedra)",
   phone: "+54 11 4829-1092",
-  address: "Av. Rivadavia 4520, Piso 3A, CABA"
+  address: "Av. Hipólito Yrigoyen 450, Gral. Pacheco, Buenos Aires"
 };
 
 export const initialLicenses: License[] = [

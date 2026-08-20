@@ -1,5 +1,5 @@
 import React from 'react';
-import { GraduationCap, ShieldCheck } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
@@ -7,12 +7,16 @@ export const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
         
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-300 flex items-center justify-center border border-blue-400/30">
-            <GraduationCap className="w-5 h-5" />
+          <div className="w-10 h-8 rounded-lg bg-white p-1 flex items-center justify-center border border-slate-700 shadow-xs">
+            <img 
+              src="/logo.png" 
+              alt="Logo Colegio San Jorge" 
+              className="max-h-full max-w-full object-contain"
+            />
           </div>
           <div>
             <p className="text-xs font-semibold text-slate-200">
-              Colegio San Jorge • Portal Docente ABC
+              Colegio San Jorge • Portal Docente ABC (Gral. Pacheco)
             </p>
             <p className="text-[11px] text-slate-400">
               Sistema Digital de Licencias & Recibos de Sueldo

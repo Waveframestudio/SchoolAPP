@@ -7,7 +7,6 @@ import {
   LayoutDashboard, 
   Menu, 
   X, 
-  GraduationCap, 
   Bell,
   Sparkles,
   LogOut
@@ -52,8 +51,12 @@ export const Header: React.FC<HeaderProps> = ({
           
           {/* Logo & School Name */}
           <NavLink to="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-blue-500/20 border border-blue-400/30 text-blue-300 flex items-center justify-center transition-all shadow-inner group-hover:scale-105 group-hover:bg-blue-500/30">
-              <GraduationCap className="w-6 h-6" />
+            <div className="w-12 h-10 rounded-xl bg-white p-1 flex items-center justify-center border border-slate-700 shadow-sm transition-all group-hover:scale-105">
+              <img 
+                src="/logo.png" 
+                alt="Logo Colegio San Jorge" 
+                className="max-h-full max-w-full object-contain"
+              />
             </div>
             <div>
               <div className="flex items-center gap-1.5 font-bold text-lg tracking-tight text-white leading-tight">

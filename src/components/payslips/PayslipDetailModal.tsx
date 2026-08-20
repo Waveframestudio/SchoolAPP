@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import type { Payslip } from '../../types/payslip';
 import { mockUser } from '../../data/mockData';
-import { X, Download, FileCheck, ShieldCheck, Printer, GraduationCap, CheckCircle2, QrCode } from 'lucide-react';
+import { X, Download, FileCheck, ShieldCheck, Printer, CheckCircle2, QrCode } from 'lucide-react';
 
 interface PayslipDetailModalProps {
   payslip: Payslip | null;
@@ -55,8 +55,12 @@ export const PayslipDetailModal: React.FC<PayslipDetailModalProps> = ({ payslip,
         {/* Modal Toolbar (Screen Only - Hidden when printing) */}
         <div className="bg-[#1b202e] border-b border-[#2c344a] p-4 sm:p-5 flex items-center justify-between shrink-0 no-print">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-blue-600/20 border border-blue-500/30 rounded-2xl text-blue-300">
-              <GraduationCap className="w-6 h-6" />
+            <div className="w-12 h-10 rounded-xl bg-white p-1 flex items-center justify-center border border-slate-700 shadow-sm shrink-0">
+              <img 
+                src="/logo.png" 
+                alt="Logo Colegio San Jorge" 
+                className="max-h-full max-w-full object-contain"
+              />
             </div>
             <div>
               <h3 className="font-extrabold text-base sm:text-lg leading-tight text-white flex items-center gap-2">
@@ -98,17 +102,21 @@ export const PayslipDetailModal: React.FC<PayslipDetailModalProps> = ({ payslip,
           {/* Institutional Document Header */}
           <div className="border border-[#2c344a] print:border-black rounded-2xl p-4 bg-[#212738] print:bg-white space-y-3">
             
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-[#2c344a] print:border-black gap-2">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-[#2c344a] print:border-black gap-3">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-lg shrink-0 print:border print:border-black">
-                  CSJ
+                <div className="w-16 h-12 rounded-xl bg-white p-1.5 flex items-center justify-center border border-slate-300 shrink-0 shadow-xs">
+                  <img 
+                    src="/logo.png" 
+                    alt="Logo Colegio San Jorge" 
+                    className="max-h-full max-w-full object-contain"
+                  />
                 </div>
                 <div>
                   <h2 className="font-extrabold text-base sm:text-lg text-white print:text-black leading-tight">
                     COLEGIO SAN JORGE
                   </h2>
                   <p className="text-[11px] text-slate-400 print:text-black">
-                    DIEGEP N° 4102 • DGCyE Provincia de Buenos Aires / CABA
+                    DIEGEP N° 4102 • DGCyE Gral. Pacheco, Prov. de Buenos Aires
                   </p>
                 </div>
               </div>
@@ -132,7 +140,7 @@ export const PayslipDetailModal: React.FC<PayslipDetailModalProps> = ({ payslip,
                 </p>
                 <p className="font-extrabold text-white print:text-black text-sm">Colegio San Jorge S.A.</p>
                 <p className="text-slate-300 print:text-black"><strong>CUIT:</strong> 30-58291049-9</p>
-                <p className="text-slate-300 print:text-black"><strong>Domicilio:</strong> Av. Rivadavia 4500, CABA</p>
+                <p className="text-slate-300 print:text-black"><strong>Domicilio:</strong> Av. Hipólito Yrigoyen 450, Gral. Pacheco</p>
                 <p className="text-slate-300 print:text-black"><strong>Actividad:</strong> Enseñanza Nivel Secundario y Superior</p>
               </div>
 
