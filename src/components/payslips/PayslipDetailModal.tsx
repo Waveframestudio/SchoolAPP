@@ -55,11 +55,11 @@ export const PayslipDetailModal: React.FC<PayslipDetailModalProps> = ({ payslip,
         {/* Modal Toolbar (Screen Only - Hidden when printing) */}
         <div className="bg-[#1b202e] border-b border-[#2c344a] p-4 sm:p-5 flex items-center justify-between shrink-0 no-print">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-10 rounded-xl bg-white p-1 flex items-center justify-center border border-slate-700 shadow-sm shrink-0">
+            <div className="flex items-center justify-center shrink-0">
               <img 
                 src="/logo.png" 
                 alt="Logo Colegio San Jorge" 
-                className="max-h-full max-w-full object-contain"
+                className="h-10 w-auto object-contain"
               />
             </div>
             <div>
@@ -104,11 +104,11 @@ export const PayslipDetailModal: React.FC<PayslipDetailModalProps> = ({ payslip,
             
             <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-[#2c344a] print:border-black gap-3">
               <div className="flex items-center gap-3">
-                <div className="w-16 h-12 rounded-xl bg-white p-1.5 flex items-center justify-center border border-slate-300 shrink-0 shadow-xs">
+                <div className="flex items-center justify-center shrink-0">
                   <img 
                     src="/logo.png" 
                     alt="Logo Colegio San Jorge" 
-                    className="max-h-full max-w-full object-contain"
+                    className="h-14 w-auto object-contain print:max-h-14"
                   />
                 </div>
                 <div>

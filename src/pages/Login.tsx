@@ -43,11 +43,11 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
         
         {/* Institutional Header Logo */}
         <div className="text-center space-y-3">
-          <div className="inline-flex items-center justify-center p-3 rounded-3xl bg-white border border-slate-700 shadow-2xl mb-1">
+          <div className="inline-flex items-center justify-center p-2 mb-1">
             <img 
               src="/logo.png" 
               alt="Logo Colegio San Jorge" 
-              className="h-16 object-contain"
+              className="h-24 w-auto object-contain drop-shadow-lg"
             />
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">

@@ -51,11 +51,11 @@ export const Header: React.FC<HeaderProps> = ({
           
           {/* Logo & School Name */}
           <NavLink to="/" className="flex items-center gap-3 group">
-            <div className="w-12 h-10 rounded-xl bg-white p-1 flex items-center justify-center border border-slate-700 shadow-sm transition-all group-hover:scale-105">
+            <div className="flex items-center justify-center shrink-0">
               <img 
                 src="/logo.png" 
                 alt="Logo Colegio San Jorge" 
-                className="max-h-full max-w-full object-contain"
+                className="h-11 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
               />
             </div>
             <div>
