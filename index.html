@@ -2,10 +2,44 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>" />
+    <link rel="icon" type="image/png" href="/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Portal oficial docente para carga digital de licencias médicas (ABC) y firma digital de recibos de sueldo. Colegio San José." />
-    <title>Colegio San José | Mis Licencias & Recibos Digitales</title>
+    <meta name="description" content="Portal oficial docente para gestión digital de licencias médicas (ABC) y recibos de sueldo. Colegio San Jorge." />
+    <title>Colegio San Jorge | Mis Licencias & Recibos Digitales</title>
+
+    {/* Auto-remove Netlify Badge / Toolbar Script */}
+    <script>
+      (function() {
+        const removeNetlifyElements = () => {
+          const selectors = [
+            'netlify-drawer',
+            'netlify-badge',
+            '#netlify-drawer-root',
+            '#netlify-drawer',
+            '#netlify-badge-root',
+            '#netlify-badge',
+            '[data-netlify-badge]',
+            '[data-netlify-drawer]',
+            'iframe[src*="netlify"]',
+            'a[href*="netlify.com"]',
+            '[class*="netlify-drawer"]',
+            '[class*="netlify-badge"]'
+          ];
+          selectors.forEach(selector => {
+            document.querySelectorAll(selector).forEach(el => el.remove());
+          });
+          document.querySelectorAll('div, button, a, span').forEach(el => {
+            if (el.children.length === 0 && el.textContent && el.textContent.toLowerCase().includes('powered by netlify')) {
+              const parentBox = el.closest('div, a, button');
+              if (parentBox) parentBox.remove();
+            }
+          });
+        };
+        window.addEventListener('DOMContentLoaded', removeNetlifyElements);
+        window.addEventListener('load', removeNetlifyElements);
+        setInterval(removeNetlifyElements, 300);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
