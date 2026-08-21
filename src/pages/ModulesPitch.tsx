@@ -11,7 +11,14 @@ import {
   Download, 
   Smartphone, 
   Briefcase, 
-  Sparkles
+  Sparkles,
+  Calendar,
+  Clock,
+  FilePlus,
+  ShieldCheck,
+  CheckCircle2,
+  Copy,
+  AlertCircle
 } from 'lucide-react';
 
 export const ModulesPitch: React.FC = () => {
@@ -39,6 +46,17 @@ export const ModulesPitch: React.FC = () => {
   const [otherSchoolsCount, setOtherSchoolsCount] = useState(1);
   const [totalHours, setTotalHours] = useState(28);
   const [ddjjSuccess, setDdjjSuccess] = useState(false);
+
+  // Tool 6: Solicitud de Constancia de Prestación de Servicios
+  const [certType, setCertType] = useState('antiguedad');
+  const [certReason, setCertReason] = useState('Trámite Bancario / Crédito');
+  const [certSuccess, setCertSuccess] = useState(false);
+
+  // Tool 7: Generador de Plan de Contingencia / Tarea Pedagógica por Ausencia
+  const [absentCourse, setAbsentCourse] = useState('3ro A - Secundaria');
+  const [contingencyTopic, setContingencyTopic] = useState('Revolución de Mayo y causas socio-económicas');
+  const [contingencyLink, setContingencyLink] = useState('https://classroom.google.com/c/historia3a');
+  const [contingencyCopied, setContingencyCopied] = useState(false);
 
   const mockSupplements = [
     { id: 1, name: 'Prof. Carlos Gómez', subject: 'Matemática', availability: 'Inmediata (Turno Mañana)', score: 98.4 },
@@ -538,50 +556,197 @@ export const ModulesPitch: React.FC = () => {
               </form>
             </div>
 
-            {/* Tool F: Descarga de Certificados e Instalador App */}
+            {/* Tool F: Solicitud de Constancias de Servicios y Certificados */}
+            <div className="bg-white dark:bg-[#212738] rounded-2xl border border-slate-200 dark:border-[#2c344a] p-6 shadow-xs space-y-4">
+              <div className="flex items-center justify-between border-b border-slate-100 dark:border-[#2c344a] pb-3">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                  <h3 className="font-bold text-slate-900 dark:text-white text-base">Certificados y Constancias Express</h3>
+                </div>
+                <span className="text-[10px] bg-emerald-100 dark:bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 font-semibold px-2 py-0.5 rounded">
+                  Firma Digital Valida
+                </span>
+              </div>
+
+              <div className="space-y-3 text-xs">
+                <p className="text-slate-600 dark:text-slate-400">
+                  Emití constancias laborales al instante sin tener que ir a secretaría o esperar días.
+                </p>
+
+                <div>
+                  <label className="block font-semibold text-slate-600 dark:text-slate-400 mb-1">
+                    Tipo de Certificado:
+                  </label>
+                  <select 
+                    value={certType}
+                    onChange={(e) => setCertType(e.target.value)}
+                    className="w-full bg-slate-50 dark:bg-[#181d2b] border border-slate-300 dark:border-[#2c344a] rounded-xl px-3 py-2 text-slate-900 dark:text-white"
+                  >
+                    <option value="antiguedad">Certificado de Trabajo & Antigüedad</option>
+                    <option value="prestacion">Constancia de Prestación de Servicios (Acompañamiento)</option>
+                    <option value="ganancias">Formulario 649 / Impuesto a las Ganancias</option>
+                    <option value="horarios">Constancia Horaria Institucional</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block font-semibold text-slate-600 dark:text-slate-400 mb-1">
+                    Presentar ante / Motivo:
+                  </label>
+                  <input 
+                    type="text"
+                    value={certReason}
+                    onChange={(e) => setCertReason(e.target.value)}
+                    placeholder="Ej: Entidad Bancaria, Obra Social, Obra Social, etc."
+                    className="w-full bg-slate-50 dark:bg-[#181d2b] border border-slate-300 dark:border-[#2c344a] rounded-xl px-3 py-2 text-slate-900 dark:text-white"
+                  />
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCertSuccess(true);
+                    setTimeout(() => setCertSuccess(false), 3500);
+                  }}
+                  className="w-full bg-slate-900 hover:bg-slate-800 dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white font-bold py-2.5 rounded-xl transition shadow-sm flex items-center justify-center gap-2"
+                >
+                  <Download className="w-4 h-4" /> Generar y Descargar PDF Firmado
+                </button>
+
+                {certSuccess && (
+                  <div className="bg-emerald-100 dark:bg-emerald-500/20 text-emerald-900 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-500/30 p-3 rounded-xl text-center font-semibold animate-fadeIn flex items-center justify-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500" /> ¡Documento descargado con Código QR de validación!
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Tool G: Plan de Contingencia / Tarea Pedagógica por Ausencia */}
+            <div className="bg-white dark:bg-[#212738] rounded-2xl border border-slate-200 dark:border-[#2c344a] p-6 shadow-xs space-y-4">
+              <div className="flex items-center justify-between border-b border-slate-100 dark:border-[#2c344a] pb-3">
+                <div className="flex items-center gap-2">
+                  <FilePlus className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                  <h3 className="font-bold text-slate-900 dark:text-white text-base">Plan de Contingencia para Suplentes</h3>
+                </div>
+                <span className="text-[10px] bg-amber-100 dark:bg-amber-500/20 text-amber-800 dark:text-amber-300 font-semibold px-2 py-0.5 rounded">
+                  Aviso Preventivo
+                </span>
+              </div>
+
+              <div className="space-y-3 text-xs">
+                <p className="text-slate-600 dark:text-slate-400">
+                  Dejá indicaciones y la tarea pedagógica lista para los alumnos y la preceptoría cuando tenés que faltar.
+                </p>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <label className="block font-semibold text-slate-600 dark:text-slate-400 mb-1">Curso / Curso:</label>
+                    <input 
+                      type="text" 
+                      value={absentCourse}
+                      onChange={(e) => setAbsentCourse(e.target.value)}
+                      className="w-full bg-slate-50 dark:bg-[#181d2b] border border-slate-300 dark:border-[#2c344a] rounded-xl px-3 py-2 text-slate-900 dark:text-white"
+                    />
+                  </div>
+                  <div>
+                    <label className="block font-semibold text-slate-600 dark:text-slate-400 mb-1">Link de Classroom / Drive:</label>
+                    <input 
+                      type="text" 
+                      value={contingencyLink}
+                      onChange={(e) => setContingencyLink(e.target.value)}
+                      className="w-full bg-slate-50 dark:bg-[#181d2b] border border-slate-300 dark:border-[#2c344a] rounded-xl px-3 py-2 text-slate-900 dark:text-white"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block font-semibold text-slate-600 dark:text-slate-400 mb-1">Tema / Actividad propuesta:</label>
+                  <textarea 
+                    rows={2}
+                    value={contingencyTopic}
+                    onChange={(e) => setContingencyTopic(e.target.value)}
+                    className="w-full bg-slate-50 dark:bg-[#181d2b] border border-slate-300 dark:border-[#2c344a] rounded-xl px-3 py-2 text-slate-900 dark:text-white"
+                  />
+                </div>
+
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setContingencyCopied(true);
+                      setTimeout(() => setContingencyCopied(false), 3000);
+                    }}
+                    className="flex-1 bg-indigo-50 dark:bg-indigo-500/20 hover:bg-indigo-100 dark:hover:bg-indigo-500/30 text-indigo-700 dark:text-indigo-300 font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-1.5"
+                  >
+                    <Copy className="w-3.5 h-3.5" /> Copiar para Preceptoría
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => alert("Plan de contingencia notificado a Vicedirección y Preceptoría del curso.")}
+                    className="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2.5 rounded-xl transition shadow-sm flex items-center justify-center gap-1.5"
+                  >
+                    Notificar a Regencia
+                  </button>
+                </div>
+
+                {contingencyCopied && (
+                  <div className="bg-emerald-100 dark:bg-emerald-500/20 text-emerald-900 dark:text-emerald-300 p-2.5 rounded-xl text-center font-medium animate-fadeIn">
+                    ¡Copiado al portapapeles! Listo para enviar por WhatsApp o correo institucional.
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Tool H: App Móvil & Accesos Directos Útiles */}
             <div className="bg-white dark:bg-[#212738] rounded-2xl border border-slate-200 dark:border-[#2c344a] p-6 shadow-xs space-y-4">
               <div className="flex items-center justify-between border-b border-slate-100 dark:border-[#2c344a] pb-3">
                 <div className="flex items-center gap-2">
                   <Smartphone className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-                  <h3 className="font-bold text-slate-900 dark:text-white text-base">Descargas & App Celular (PWA)</h3>
+                  <h3 className="font-bold text-slate-900 dark:text-white text-base">Acceso Móvil PWA & Utilidades</h3>
                 </div>
                 <span className="text-[10px] bg-indigo-100 dark:bg-indigo-500/20 text-indigo-800 dark:text-indigo-300 font-semibold px-2 py-0.5 rounded">
-                  Acceso Rápido
+                  Experiencia Novedosa
                 </span>
               </div>
 
               <div className="space-y-3 text-xs">
                 <div className="p-3 bg-slate-50 dark:bg-[#181d2b] rounded-xl border border-slate-200 dark:border-[#2c344a] flex items-center justify-between">
-                  <div>
-                    <p className="font-bold text-slate-900 dark:text-white">Certificado de Trabajo Oficial</p>
-                    <p className="text-slate-500 dark:text-slate-400 text-[11px]">Para presentar en bancos o trámites de vivienda</p>
+                  <div className="flex items-center gap-2.5">
+                    <Calendar className="w-4 h-4 text-indigo-500" />
+                    <div>
+                      <p className="font-bold text-slate-900 dark:text-white">Calendario Escolar & Feriados Docentes</p>
+                      <p className="text-slate-500 dark:text-slate-400 text-[11px]">Sincronización directa con Google / Outlook</p>
+                    </div>
                   </div>
                   <button 
-                    onClick={() => alert("Generando Certificado de Trabajo PDF con firma digital institucional...")}
+                    onClick={() => alert("Sincronizando Calendario Académico DGCyE a tu calendario de Google...")}
                     className="bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 text-slate-800 dark:text-white font-semibold px-3 py-1.5 rounded-lg transition"
                   >
-                    <Download className="w-3.5 h-3.5 inline mr-1" /> Descargar
+                    Sincronizar
                   </button>
                 </div>
 
                 <div className="p-3 bg-slate-50 dark:bg-[#181d2b] rounded-xl border border-slate-200 dark:border-[#2c344a] flex items-center justify-between">
-                  <div>
-                    <p className="font-bold text-slate-900 dark:text-white">Formulario 649 (Ganancias)</p>
-                    <p className="text-slate-500 dark:text-slate-400 text-[11px]">Resumen anual de retenciones de impuesto</p>
+                  <div className="flex items-center gap-2.5">
+                    <Clock className="w-4 h-4 text-indigo-500" />
+                    <div>
+                      <p className="font-bold text-slate-900 dark:text-white">Calculadora de Antigüedad y Trienios</p>
+                      <p className="text-slate-500 dark:text-slate-400 text-[11px]">Simulá tus cobros por tramos de 3 y 5 años</p>
+                    </div>
                   </div>
                   <button 
-                    onClick={() => alert("Descargando Formulario F649 en formato oficial...")}
+                    onClick={() => alert("Antigüedad actual: 10 años (60%). Próximo tramo (70%): en 1 año y 10 meses.")}
                     className="bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 text-slate-800 dark:text-white font-semibold px-3 py-1.5 rounded-lg transition"
                   >
-                    <Download className="w-3.5 h-3.5 inline mr-1" /> Descargar
+                    Calcular
                   </button>
                 </div>
 
                 <div className="p-4 bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/30 rounded-xl text-indigo-950 dark:text-indigo-300 text-center space-y-1">
                   <Smartphone className="w-6 h-6 mx-auto text-indigo-600 dark:text-indigo-400" />
-                  <p className="font-bold text-xs">Instalá esta App en tu celular</p>
+                  <p className="font-bold text-xs">Instalá la App en tu celular (PWA)</p>
                   <p className="text-[11px] text-indigo-800 dark:text-indigo-400">
-                    Abrí esta página desde tu celular y elegí "Agregar a la pantalla principal". Funciona como una app nativa sin ocupar memoria.
+                    Abrí esta página en el celular y seleccioná "Agregar a la pantalla principal". Tendrás acceso rápido sin descargar nada de la tienda.
                   </p>
                 </div>
               </div>
